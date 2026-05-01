@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      JAVA_HOME: /usr/lib/jvm/temurin-17-jdk
     steps:
       - uses: actions/checkout@v4
 
@@ -16,12 +18,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 🟢 Эта строка даёт права на запуск gradlew (исправляет 127)
-      - name: Grant execute permission for Gradle
-        run: chmod +x gradlew
+      # 🟢 устанавливаем Gradle напрямую вместо wrapper
+      - name: Setup Gradle manually
+        uses: gradle/gradle-build-action@v3
 
-      - name: Build
-        run: ./gradlew assembleDebug
+      - name: Build APK
+        run: gradle -p app assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
