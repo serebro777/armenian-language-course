@@ -4,7 +4,7 @@
         android:allowBackup="true"
         android:label="Armenian App"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.Material.Light">
+        android:theme="@style/Theme.ArmenianApp"
 
         <activity 
                  android:name=".MainActivity"
