@@ -7,8 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      JAVA_HOME: /usr/lib/jvm/temurin-17-jdk
     steps:
       - uses: actions/checkout@v4
 
@@ -18,9 +16,10 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      # 🟢 устанавливаем Gradle напрямую вместо wrapper
-      - name: Setup Gradle manually
-        uses: gradle/gradle-build-action@v3
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.6
 
       - name: Build APK
         run: gradle -p app assembleDebug
